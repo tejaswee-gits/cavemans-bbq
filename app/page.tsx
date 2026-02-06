@@ -1,5 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import LoadingScreen from '@/components/LoadingScreen';
 import Footer from '@/components/Footer';
 import HappyHourModal from '@/components/HappyHourModal';
 import BrisketAnimation from '@/components/BrisketAnimation';
@@ -7,9 +9,18 @@ import Link from 'next/link';
 import { Star } from 'lucide-react';
 
 export default function Home() {
+  const [loadingFinished, setLoadingFinished] = useState(false);
+  const [showHappyHour, setShowHappyHour] = useState(false);
+
+  const handleLoadingComplete = () => {
+    setLoadingFinished(true);
+    setShowHappyHour(true);
+  };
+
   return (
     <main className="min-h-screen bg-cream selection:bg-caveman-red selection:text-white overflow-x-hidden">
-      <HappyHourModal />
+      {!loadingFinished && <LoadingScreen onComplete={handleLoadingComplete} />}
+      <HappyHourModal isOpen={showHappyHour} onClose={() => setShowHappyHour(false)} />
 
       {/* 1. HERO SECTION */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a] text-cream z-10">

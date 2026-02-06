@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function LoadingScreen() {
+export default function LoadingScreen({ onComplete }: { onComplete?: () => void }) {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export default function LoadingScreen() {
     }, [isLoading]);
 
     return (
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" onExitComplete={onComplete}>
             {isLoading && (
                 <motion.div
                     className="fixed inset-0 z-[100] flex items-center justify-center bg-charcoal text-cream"

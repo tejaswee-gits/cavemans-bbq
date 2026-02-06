@@ -4,8 +4,22 @@ import { X, Beer } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-export default function HappyHourModal() {
-    const [isOpen, setIsOpen] = useState(true);
+interface HappyHourModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export default function HappyHourModal({ isOpen, onClose }: HappyHourModalProps) {
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+        if (isOpen) {
+            // Auto close after 20 seconds
+            timer = setTimeout(() => {
+                onClose();
+            }, 20000);
+        }
+        return () => clearTimeout(timer);
+    }, [isOpen, onClose]);
 
     return (
         <AnimatePresence>
@@ -17,6 +31,7 @@ export default function HappyHourModal() {
                         animate={{ opacity: 0.6 }}
                         exit={{ opacity: 0 }}
                         className="absolute inset-0 bg-black"
+                        onClick={onClose}
                     />
 
                     {/* Modal */}
@@ -27,7 +42,7 @@ export default function HappyHourModal() {
                         className="relative bg-[#D64933] w-full max-w-md p-8 text-center border-4 border-white shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
                     >
                         <button
-                            onClick={() => setIsOpen(false)}
+                            onClick={onClose}
                             className="absolute -top-4 -right-4 bg-white text-[#D64933] p-2 rounded-full shadow-lg hover:scale-110 transition-transform"
                         >
                             <X size={20} strokeWidth={3} />
@@ -53,7 +68,7 @@ export default function HappyHourModal() {
                                 </button>
                             </Link>
                             <button
-                                onClick={() => setIsOpen(false)}
+                                onClick={onClose}
                                 className="text-white text-xs uppercase font-bold underline hover:text-gray-200"
                             >
                                 Non merci... je n'ai pas soif
