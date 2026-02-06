@@ -3,6 +3,8 @@ import { Anton, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 const anton = Anton({
   weight: "400",
   subsets: ["latin"],
@@ -34,6 +36,7 @@ export default function RootLayout({
         <div className="pt-20">
           {children}
         </div>
+        <SpeedInsights />
       </body>
     </html>
   );
