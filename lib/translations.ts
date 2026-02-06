@@ -45,9 +45,9 @@ export const translations = {
             contact_title: "Contact",
         },
         menu: {
-            header_eat: "MANGER",
-            header_drink: "BOIRE",
-            header_repeat: "RÉPÉTER",
+            header_eat: "EAT",
+            header_drink: "SMOKE",
+            header_repeat: "REPEAT",
             cta_title: "Salle comble ce soir ?",
             cta_desc: "Ne risquez pas la famine. Réservez maintenant.",
             cta_btn: "Réserver une table",

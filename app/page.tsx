@@ -51,7 +51,7 @@ export default function Home() {
       {/* 2. ORANGE INTRODUCTION SECTION */}
       <section className="bg-[#D64933] py-24 px-6 md:px-12 flex flex-col md:flex-row items-center gap-12 text-white">
         <div className="md:w-1/2">
-          <h2 className="text-5xl md:text-7xl font-header uppercase leading-[0.9]">
+          <h2 className="text-3xl md:text-7xl font-header uppercase leading-[0.9]">
             {t('home.intro_title')}
           </h2>
         </div>
