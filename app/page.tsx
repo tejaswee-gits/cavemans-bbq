@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { useLanguage } from '@/lib/LanguageContext';
 import LoadingScreen from '@/components/LoadingScreen';
 import Footer from '@/components/Footer';
 import HappyHourModal from '@/components/HappyHourModal';
@@ -11,6 +12,7 @@ import { Star } from 'lucide-react';
 export default function Home() {
   const [loadingFinished, setLoadingFinished] = useState(false);
   const [showHappyHour, setShowHappyHour] = useState(false);
+  const { t } = useLanguage();
 
   const handleLoadingComplete = () => {
     setLoadingFinished(true);
@@ -35,14 +37,14 @@ export default function Home() {
         </div>
 
         {/* Big Text Background */}
-        <div className="w-full text-center flex flex-col space-y-[-2rem] md:space-y-[-4rem] z-20 select-none pointer-events-none">
-          <h1 className="text-[15vw] md:text-[18vw] font-header text-caveman-red leading-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">EAT.</h1>
-          <h1 className="text-[15vw] md:text-[18vw] font-header text-caveman-red leading-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">SMOKE.</h1>
-          <h1 className="text-[15vw] md:text-[18vw] font-header text-caveman-red leading-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">REPEAT.</h1>
+        <div className="w-full text-center flex flex-col space-y-4 md:space-y-[-4rem] z-20 select-none pointer-events-none mt-16 md:mt-0">
+          <h1 className="text-[12vw] md:text-[18vw] font-header text-caveman-red leading-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">{t('menu.header_eat')}.</h1>
+          <h1 className="text-[12vw] md:text-[18vw] font-header text-caveman-red leading-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">{t('menu.header_drink')}.</h1>
+          <h1 className="text-[12vw] md:text-[18vw] font-header text-caveman-red leading-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">{t('menu.header_repeat')}.</h1>
         </div>
 
         <div className="absolute bottom-20 z-20 text-center uppercase tracking-[0.2em] text-white/80 font-header text-sm md:text-xl drop-shadow-lg">
-          Le vrai barbecue au feu de bois. Fait avec passion et patience.
+          {t('home.hero_sub')}
         </div>
       </section>
 
@@ -50,12 +52,12 @@ export default function Home() {
       <section className="bg-[#D64933] py-24 px-6 md:px-12 flex flex-col md:flex-row items-center gap-12 text-white">
         <div className="md:w-1/2">
           <h2 className="text-5xl md:text-7xl font-header uppercase leading-[0.9]">
-            Caveman's est une expérience brute, conviviale et authentique.
+            {t('home.intro_title')}
           </h2>
         </div>
         <div className="md:w-1/2 font-body text-sm md:text-base leading-relaxed opacity-90 space-y-6">
-          <p>Le barbecue, c'est l'art de la patience. Situé à Colombes, notre établissement célèbre la tradition du fumage lent. Bœuf Black Angus, ribs de porc caramélisés et poulet fermier, tout est fumé sur place pendant plus de 12 heures.</p>
-          <p>Ici, on oublie les couverts fins. On mange avec les mains, on partage des plateaux gargantuesques, et on savoure le goût unique du bois de chêne et de hickory.</p>
+          <p>{t('home.intro_text_1')}</p>
+          <p>{t('home.intro_text_2')}</p>
         </div>
       </section>
 
@@ -78,7 +80,7 @@ export default function Home() {
           </div>
           {/* Story Badge */}
           <div className="absolute bottom-8 left-8 bg-black/50 backdrop-blur-md p-4 border-l-4 border-caveman-red max-w-xs text-xs text-white/80 font-body leading-relaxed md:opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            "4:00 AM. That's when the fire starts. By the time you eat this brisket, it has seen 3 different sunrises."
+            {t('home.brislet_badge')}
           </div>
         </div>
         <div className="w-full md:w-1/2 bg-[#D64933] p-12 md:p-20 flex flex-col justify-center text-white relative overflow-hidden">
@@ -90,13 +92,13 @@ export default function Home() {
             <span className="text-5xl">🍴</span>
           </div>
           <h3 className="text-4xl md:text-5xl font-header uppercase mb-6 underline decoration-4 decoration-white/30 underline-offset-8 relative z-10">
-            L'Art du "Low & Slow"
+            {t('home.low_slow_title')}
           </h3>
           <p className="font-body text-lg leading-relaxed opacity-90 relative z-10">
-            Regardez cette croûte noire (le "Bark"). C'est la signature du chêne qui brûle doucement. En dessous ? Un anneau rose, la preuve que la fumée a pénétré la chair.
+            {t('home.low_slow_1')}
           </p>
           <p className="font-body text-lg leading-relaxed opacity-90 mt-4 relative z-10">
-            Ce n'est pas juste de la viande. C'est 14 heures de surveillance, de réglage de température, et de passion brute.
+            {t('home.low_slow_2')}
           </p>
         </div>
       </section>
@@ -115,18 +117,18 @@ export default function Home() {
           />
         </div>
         <div className="md:w-1/2 relative">
-          <span className="absolute -top-10 -left-10 text-[10rem] text-charcoal opacity-5 font-header z-0">1998</span>
-          <h2 className="text-5xl font-header uppercase text-charcoal mb-6 relative z-10">L'Expérience<br /><span className="text-caveman-red">du Garage</span></h2>
+          <span className="absolute -top-10 -left-10 text-[10rem] text-charcoal opacity-5 font-header z-0">{t('home.history_year')}</span>
+          <h2 className="text-5xl font-header uppercase text-charcoal mb-6 relative z-10">{t('home.history_title')}<br /><span className="text-caveman-red">{t('home.history_subtitle')}</span></h2>
 
           <p className="font-body text-charcoal/70 mb-4 leading-relaxed relative z-10 font-bold">
-            Tout a commencé au 1 Rue Estelle Rouat. Pas de restaurant, juste un garage, une tonne de métal et une passion dévorante.
+            {t('home.history_text_1')}
           </p>
           <p className="font-body text-charcoal/70 mb-8 leading-relaxed relative z-10">
-            On a brûlé des kilos de viande. On a enfumé tout le quartier (désolé les voisins). Mais un jour, on a sorti ce plateau de côtes de porc. La chair se détachait de l'os juste en la regardant. Ce jour-là, le "Caveman" est né.
+            {t('home.history_text_2')}
           </p>
 
           <div className="border-l-4 border-caveman-red pl-6 italic text-charcoal/80 bg-white p-4 shadow-lg transform rotate-1 relative z-10">
-            "Le barbecue, c'est pas de la cuisine, c'est une religion. Et voici notre autel." — Le Pitmaster
+            {t('home.history_quote')}
           </div>
         </div>
       </section>
@@ -141,7 +143,7 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto relative z-10">
           <h2 className="text-5xl md:text-6xl font-header uppercase text-caveman-red text-center mb-16">
-            Ils ont survécu
+            {t('home.survivors_title')}
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-cream">
@@ -184,26 +186,26 @@ export default function Home() {
 
         <div className="max-w-4xl mx-auto text-center px-4 relative z-10">
           <h2 className="text-6xl md:text-8xl font-header uppercase mb-12 drop-shadow-xl text-white">
-            Alors, on réserve ?
+            {t('home.footer_title')}
           </h2>
           <Link href="/menu?action=reserve">
             <button className="bg-[#D64933] text-white font-header text-2xl md:text-3xl uppercase py-4 px-12 border-b-8 border-[#a33220] hover:translate-y-1 hover:border-b-4 transition-all shadow-2xl">
-              Réserver ma table
+              {t('common.reserve_btn')}
             </button>
           </Link>
 
           <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-white/20 pt-12 text-xs md:text-sm uppercase font-bold tracking-widest text-center text-white/80">
             <div className="flex flex-col gap-2">
-              <span className="text-[#EBCB6B] mb-2">Adresse</span>
+              <span className="text-[#EBCB6B] mb-2">{t('home.address_title')}</span>
               <p>1 rue Estelle Rouat,<br />92700 Colombes</p>
             </div>
             <div className="flex flex-col gap-2">
-              <span className="text-[#EBCB6B] mb-2">Horaires</span>
-              <p>Mardi - Dimanche</p>
+              <span className="text-[#EBCB6B] mb-2">{t('home.hours_title')}</span>
+              <p>{t('home.hours_days')}</p>
               <p>12:00 - 15:00 / 19:00 - 23:00</p>
             </div>
             <div className="flex flex-col gap-2">
-              <span className="text-[#EBCB6B] mb-2">Contact</span>
+              <span className="text-[#EBCB6B] mb-2">{t('home.contact_title')}</span>
               <p>01 23 45 67 89</p>
               <p>hello@cavemansbbq.fr</p>
             </div>

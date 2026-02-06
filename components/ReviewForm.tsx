@@ -4,7 +4,10 @@ import { Star } from 'lucide-react';
 import clsx from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { useLanguage } from '@/lib/LanguageContext';
+
 export default function ReviewForm({ onForceRefetch }: { onForceRefetch?: () => void }) {
+    const { t } = useLanguage();
     const [isOpen, setIsOpen] = useState(false);
     const [rating, setRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
@@ -29,7 +32,7 @@ export default function ReviewForm({ onForceRefetch }: { onForceRefetch?: () => 
                     onClick={() => setIsOpen(true)}
                     className="w-full bg-caveman-red text-white font-header text-4xl uppercase py-8 border-4 border-charcoal shadow-[10px_10px_0px_#1A1A1A] hover:translate-y-1 hover:shadow-none transition-all transform hover:rotate-1"
                 >
-                    🔥 Spread The Fire (Rate Us)
+                    {t('review_form.btn_open')}
                 </button>
             ) : (
                 <motion.div
@@ -39,18 +42,18 @@ export default function ReviewForm({ onForceRefetch }: { onForceRefetch?: () => 
                 >
                     {isSubmitted ? (
                         <div className="text-center py-12">
-                            <h3 className="font-header text-3xl mb-2 text-green-600">LOUD AND CLEAR!</h3>
-                            <p className="font-body">Thanks for adding fuel to the fire.</p>
+                            <h3 className="font-header text-3xl mb-2 text-green-600">{t('review_form.success_title')}</h3>
+                            <p className="font-body">{t('review_form.success_text')}</p>
                         </div>
                     ) : (
                         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                             <div className="flex justify-between items-center mb-4">
-                                <h3 className="font-header text-3xl uppercase">Your Tale</h3>
-                                <button type="button" onClick={() => setIsOpen(false)} className="underline text-sm uppercase font-bold text-gray-500">Cancel</button>
+                                <h3 className="font-header text-3xl uppercase">{t('review_form.title')}</h3>
+                                <button type="button" onClick={() => setIsOpen(false)} className="underline text-sm uppercase font-bold text-gray-500">{t('review_form.cancel')}</button>
                             </div>
 
                             <div className="flex flex-col gap-2">
-                                <label className="font-header uppercase text-xl">How was the meat?</label>
+                                <label className="font-header uppercase text-xl">{t('review_form.label_rating')}</label>
                                 <div className="flex gap-2">
                                     {[1, 2, 3, 4, 5].map((star) => (
                                         <button
@@ -73,13 +76,13 @@ export default function ReviewForm({ onForceRefetch }: { onForceRefetch?: () => 
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <input required placeholder="Your Name" className="border-4 border-charcoal p-4 font-bold bg-cream focus:outline-none focus:ring-4 focus:ring-mustard" />
-                                <input required placeholder="Your Title (e.g. Carnivore)" className="border-4 border-charcoal p-4 font-bold bg-cream focus:outline-none focus:ring-4 focus:ring-mustard" />
+                                <input required placeholder={t('review_form.placeholder_name')} className="border-4 border-charcoal p-4 font-bold bg-cream focus:outline-none focus:ring-4 focus:ring-mustard" />
+                                <input required placeholder={t('review_form.placeholder_title')} className="border-4 border-charcoal p-4 font-bold bg-cream focus:outline-none focus:ring-4 focus:ring-mustard" />
                             </div>
 
                             <textarea
                                 required
-                                placeholder="Tell us the truth. Was it smoky enough?"
+                                placeholder={t('review_form.placeholder_text')}
                                 rows={4}
                                 className="border-4 border-charcoal p-4 font-bold bg-cream focus:outline-none focus:ring-4 focus:ring-mustard resize-none"
                             />
@@ -89,7 +92,7 @@ export default function ReviewForm({ onForceRefetch }: { onForceRefetch?: () => 
                                 disabled={rating === 0}
                                 className="bg-charcoal text-white font-header text-2xl uppercase py-4 hover:bg-caveman-red transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                Post Review
+                                {t('review_form.btn_submit')}
                             </button>
                         </form>
                     )}

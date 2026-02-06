@@ -1,7 +1,8 @@
-'use client';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/lib/LanguageContext';
 
 export default function Footer() {
+    const { t } = useLanguage();
     return (
         <footer className="bg-charcoal text-cream pt-32 pb-12 px-4 md:px-8 overflow-hidden relative">
             <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
@@ -13,23 +14,23 @@ export default function Footer() {
                     className="relative"
                 >
                     <h2 className="text-7xl md:text-[8rem] lg:text-[10rem] leading-[0.9] font-header uppercase mb-8 text-center max-w-5xl mx-auto">
-                        ALORS, ON <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">MANGE ?</span>
+                        {t('footer_component.title_part1')} <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">{t('footer_component.title_part2')}</span>
                     </h2>
                 </motion.div>
 
                 <p className="font-body text-xl md:text-2xl max-w-2xl text-cream/70 mb-16 leading-relaxed font-light">
-                    Ready to join the tribe? Our pits are fired up and the beer is ice cold. Whether you're a lone hunter or part of a large pack, we've got the space.
+                    {t('footer_component.text')}
                 </p>
 
                 <div className="flex flex-col md:flex-row gap-8 z-10 w-full md:w-auto">
                     <button className="group relative px-10 py-5 bg-caveman-red border-4 border-white text-white font-header text-2xl uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(232,74,66,0.4)] hover:shadow-[0_0_50px_rgba(232,74,66,0.6)]">
-                        <span className="relative z-20 font-bold group-hover:text-white transition-colors duration-300">BOOK A TABLE</span>
+                        <span className="relative z-20 font-bold group-hover:text-white transition-colors duration-300">{t('footer_component.btn_book')}</span>
                         {/* Fire effect background */}
                         <div className="absolute inset-0 bg-gradient-to-t from-yellow-500 via-orange-600 to-red-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-10" />
                     </button>
 
                     <button className="px-10 py-5 bg-transparent border-4 border-white text-white font-header text-2xl uppercase tracking-widest hover:bg-white hover:text-charcoal transition-colors">
-                        View Events
+                        {t('footer_component.btn_events')}
                     </button>
                 </div>
 
@@ -42,7 +43,7 @@ export default function Footer() {
                         </p>
                     </div>
                     <div className="col-span-1 md:col-span-1">
-                        <h3 className="font-header text-xl text-mustard mb-4">OPEN HOURS</h3>
+                        <h3 className="font-header text-xl text-mustard mb-4">{t('footer_component.open_hours')}</h3>
                         <p className="font-body text-sm opacity-60 font-medium">MON - FRI: 17H - 23H</p>
                         <p className="font-body text-sm opacity-60 font-medium">SAT - SUN: 12H - 00H</p>
                     </div>
@@ -56,7 +57,7 @@ export default function Footer() {
                 </div>
 
                 <div className="mt-20 text-[10px] uppercase opacity-30 font-body w-full flex flex-col md:flex-row justify-between items-center gap-4">
-                    <span>© 2026 CAVEMAN'S BBQ. NO FORKS REQUIRED.</span>
+                    <span>{t('footer_component.copy')}</span>
                     <div className="flex gap-4">
                         <span className="cursor-pointer hover:text-white">PRIVACY</span>
                         <span className="cursor-pointer hover:text-white">TERMS</span>

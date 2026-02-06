@@ -4,17 +4,23 @@ import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import clsx from 'clsx';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
+import { useLanguage } from '@/lib/LanguageContext';
 
 const NAV_ITEMS = [
-    { name: 'HOME', path: '/' },
-    { name: 'EAT & DRINK', path: '/menu' },
-    { name: 'WALL OF FAME', path: '/reviews' },
+    { nameKey: 'nav.home', path: '/' },
+    { nameKey: 'nav.eat_drink', path: '/menu' },
+    { nameKey: 'nav.wall_of_fame', path: '/reviews' },
 ];
 
 export default function Navbar() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+    const { language, setLanguage, t } = useLanguage();
+
+    const toggleLanguage = () => {
+        setLanguage(language === 'fr' ? 'en' : 'fr');
+    };
 
     return (
         <>
@@ -33,7 +39,7 @@ export default function Navbar() {
                                 "font-header text-xl uppercase tracking-wide transition-colors duration-300",
                                 pathname === item.path ? "text-caveman-red" : "text-charcoal group-hover:text-caveman-red"
                             )}>
-                                {item.name}
+                                {t(item.nameKey)}
                             </span>
                             {pathname === item.path && (
                                 <motion.div
@@ -45,18 +51,29 @@ export default function Navbar() {
                     ))}
                     <Link href="/menu?action=reserve">
                         <button className="bg-charcoal text-cream font-header text-lg px-6 py-1 uppercase border-2 border-transparent hover:bg-caveman-red hover:border-charcoal transition-all shadow-[4px_4px_0px_#E84A42] hover:translate-y-1 hover:shadow-none">
-                            Book Table
+                            {t('nav.book_table')}
                         </button>
                     </Link>
+
+                    {/* Language Toggle */}
+                    <button onClick={toggleLanguage} className="flex items-center gap-1 font-header text-lg hover:text-caveman-red transition-colors">
+                        <Globe size={20} />
+                        <span>{language === 'fr' ? 'EN' : 'FR'}</span>
+                    </button>
                 </div>
 
                 {/* Mobile Toggle */}
-                <button
-                    onClick={() => setIsOpen(!isOpen)}
-                    className="md:hidden z-50 relative w-10 h-10 flex items-center justify-center border-2 border-charcoal bg-white"
-                >
-                    {isOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
+                <div className="flex items-center gap-4 md:hidden">
+                    <button onClick={toggleLanguage} className="font-header text-lg border-2 border-charcoal bg-white w-10 h-10 flex items-center justify-center">
+                        {language === 'fr' ? 'EN' : 'FR'}
+                    </button>
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="z-50 relative w-10 h-10 flex items-center justify-center border-2 border-charcoal bg-white"
+                    >
+                        {isOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+                </div>
             </nav>
 
             {/* Mobile Menu Overlay */}
@@ -80,7 +97,7 @@ export default function Navbar() {
                                     pathname === item.path ? "text-white text-stroke-charcoal" : "text-charcoal"
                                 )}
                             >
-                                {item.name}
+                                {t(item.nameKey)}
                             </motion.div>
                         </Link>
                     ))}

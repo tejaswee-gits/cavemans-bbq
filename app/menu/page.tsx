@@ -5,25 +5,26 @@ import { ShoppingBag } from 'lucide-react';
 import clsx from 'clsx';
 import CartDrawer from '@/components/CartDrawer';
 import ReservationModal from '@/components/ReservationModal';
+import { useLanguage } from '@/lib/LanguageContext';
 import { useSearchParams } from 'next/navigation';
 
 const MENU_ITEMS = [
     // From The Pit (Meats)
-    { id: 1, name: "BEEF BRISKET", desc: "18-hour slow smoked black angus.", price: 24, type: "pit", icon: "🍖" },
-    { id: 2, name: "ST. LOUIS RIBS", desc: "Half rack, dry rubbed or glazed.", price: 19, type: "pit", icon: "🥓" },
-    { id: 3, name: "PULLED PORK", desc: "Hand-shredded shoulder.", price: 16, type: "pit", icon: "🐷" },
-    { id: 4, name: "CHOPPED CHICKEN", desc: "Smoked over hickory. Quarter bird.", price: 15, type: "pit", icon: "🍗" },
+    { id: 1, type: "pit", icon: "🍖", price: 24 },
+    { id: 2, type: "pit", icon: "🥓", price: 19 },
+    { id: 3, type: "pit", icon: "🐷", price: 16 },
+    { id: 4, type: "pit", icon: "🍗", price: 15 },
 
     // Sideshow (Sides)
-    { id: 5, name: "PIT BEANS", desc: "Simmered with brisket burnt ends.", price: 6, type: "sides", icon: "🥣" },
-    { id: 6, name: "MAC & CHEESE", desc: "Smoked gouda & cheddar crust.", price: 8, type: "sides", icon: "🧀" },
-    { id: 7, name: "SLAW REVOLUTION", desc: "Vinegar slaw, crisp and sharp.", price: 5, type: "sides", icon: "🥬" },
-    { id: 8, name: "CORNBREAD", desc: "Jalapeno honey butter on top.", price: 6, type: "sides", icon: "🌽" },
+    { id: 5, type: "sides", icon: "🥣", price: 6 },
+    { id: 6, type: "sides", icon: "🧀", price: 8 },
+    { id: 7, type: "sides", icon: "🥬", price: 5 },
+    { id: 8, type: "sides", icon: "🌽", price: 6 },
 
     // Liquid Gold (Drinks)
-    { id: 9, name: "PITMASTER ALE", desc: "Custom craft brew.", price: 7, type: "drinks", icon: "🍺" },
-    { id: 10, name: "TEXAS LEMONADE", desc: "House squeezed.", price: 5, type: "drinks", icon: "🍋" },
-    { id: 11, name: "NEGRONI ROCKS", desc: "The Caveman classic.", price: 12, type: "drinks", icon: "🥃" },
+    { id: 9, type: "drinks", icon: "🍺", price: 7 },
+    { id: 10, type: "drinks", icon: "🍋", price: 5 },
+    { id: 11, type: "drinks", icon: "🥃", price: 12 },
 ];
 
 function MenuContent() {
@@ -31,6 +32,7 @@ function MenuContent() {
     const [cart, setCart] = useState<{ id: number, quantity: number }[]>([]);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isReserveOpen, setIsReserveOpen] = useState(false);
+    const { t } = useLanguage();
 
     const searchParams = useSearchParams();
 
@@ -61,16 +63,16 @@ function MenuContent() {
             const product = MENU_ITEMS.find(p => p.id === cartItem.id);
             return {
                 ...cartItem,
-                name: product?.name || 'Unknown',
+                name: t(`menu.items.${product?.id}.name`) || 'Unknown',
                 price: product?.price || 0
             };
         });
     };
 
     const categories = [
-        { id: 'pit', label: 'EAT' },
-        { id: 'sides', label: 'SIDES' },
-        { id: 'drinks', label: 'DRINK' },
+        { id: 'pit', label: t('menu.tab_eat') },
+        { id: 'sides', label: t('menu.tab_sides') },
+        { id: 'drinks', label: t('menu.tab_drink') },
     ];
 
     return (
@@ -99,11 +101,11 @@ function MenuContent() {
                     animate={{ y: 0, opacity: 1 }}
                     className="text-[15vw] leading-[0.8] font-header uppercase text-caveman-red mix-blend-hard-light relative z-10"
                 >
-                    REPEAT.
+                    {t('menu.header_repeat')}.
                 </motion.h1>
                 <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 flex justify-between px-10 opacity-10 pointer-events-none">
-                    <span className="text-[10vw] font-header">EAT</span>
-                    <span className="text-[10vw] font-header">DRINK</span>
+                    <span className="text-[10vw] font-header">{t('menu.header_eat')}</span>
+                    <span className="text-[10vw] font-header">{t('menu.header_drink')}</span>
                 </div>
             </section>
 
@@ -112,14 +114,14 @@ function MenuContent() {
                 {/* Reservation CTA Strip */}
                 <div className="bg-mustard border-4 border-charcoal p-6 mb-12 flex flex-col md:flex-row justify-between items-center gap-4 transform -rotate-1">
                     <div>
-                        <h3 className="font-header text-3xl uppercase">Full House Tonight?</h3>
-                        <p className="font-body opacity-80">Don't risk starvation. Book a table now.</p>
+                        <h3 className="font-header text-3xl uppercase">{t('menu.cta_title')}</h3>
+                        <p className="font-body opacity-80">{t('menu.cta_desc')}</p>
                     </div>
                     <button
                         onClick={() => setIsReserveOpen(true)}
                         className="bg-charcoal text-white px-8 py-3 font-header text-xl uppercase hover:bg-white hover:text-charcoal transition-colors"
                     >
-                        Reserve Table
+                        {t('menu.cta_btn')}
                     </button>
                 </div>
 
@@ -154,10 +156,10 @@ function MenuContent() {
                                 className="group relative bg-white border-4 border-charcoal p-6 shadow-[8px_8px_0px_rgba(0,0,0,0.1)] hover:shadow-[12px_12px_0px_#E84A42] transition-all duration-300 flex flex-col"
                             >
                                 <div className="flex justify-between items-start mb-4">
-                                    <h3 className="font-header text-4xl uppercase leading-none max-w-[70%]">{item.name}</h3>
+                                    <h3 className="font-header text-4xl uppercase leading-none max-w-[70%]">{t(`menu.items.${item.id}.name`)}</h3>
                                     <span className="text-4xl">{item.icon}</span>
                                 </div>
-                                <p className="font-body text-gray-600 mb-6 flex-grow">{item.desc}</p>
+                                <p className="font-body text-gray-600 mb-6 flex-grow">{t(`menu.items.${item.id}.desc`)}</p>
 
                                 <div className="flex justify-between items-end border-t-2 border-dashed border-gray-300 pt-4 mt-auto">
                                     <span className="font-header text-4xl text-charcoal">€{item.price}</span>
@@ -165,7 +167,7 @@ function MenuContent() {
                                         onClick={() => addToCart(item.id)}
                                         className="bg-charcoal text-white px-6 py-2 font-header uppercase tracking-wider hover:bg-caveman-red transition-colors"
                                     >
-                                        Add +
+                                        {t('menu.add_btn')}
                                     </button>
                                 </div>
                             </motion.div>
@@ -182,7 +184,7 @@ function MenuContent() {
 
 export default function MenuPage() {
     return (
-        <Suspense fallback={<div className="min-h-screen bg-cream flex items-center justify-center font-header text-3xl">Loading Menu...</div>}>
+        <Suspense fallback={<div className="min-h-screen bg-cream flex items-center justify-center font-header text-3xl">...</div>}>
             <MenuContent />
         </Suspense>
     );

@@ -4,32 +4,37 @@ import { useEffect, useRef, useState } from 'react';
 export default function BrisketAnimation() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [images, setImages] = useState<HTMLImageElement[]>([]);
-    const [framesLoaded, setFramesLoaded] = useState(0);
+
     const totalFrames = 240;
 
     useEffect(() => {
         // Preload images
-        const loadedImages: HTMLImageElement[] = [];
-        let loadedCount = 0;
-
         const loadImages = async () => {
+            const promises = [];
+            const newImages: HTMLImageElement[] = [];
+
             for (let i = 1; i <= totalFrames; i++) {
                 const img = new Image();
                 const frameStr = i.toString().padStart(3, '0');
                 img.src = `/brisket-frames/ezgif-frame-${frameStr}.jpg`;
+                newImages.push(img);
 
-                await new Promise((resolve) => {
+                const promise = new Promise((resolve) => {
                     img.onload = () => {
-                        loadedCount++;
-                        setFramesLoaded(loadedCount);
                         resolve(null);
                     };
-                    // If error, just skip
                     img.onerror = () => resolve(null);
                 });
-                loadedImages.push(img);
+                promises.push(promise);
             }
-            setImages(loadedImages);
+
+            // Wait for all to try loading, but we have the image objects already
+            // We can actually start setting images immediately if we want, 
+            // but waiting ensures they are at least requested.
+            // Better to set them so the canvas has references, but maybe wait for a few?
+            // For simplicity and speed vs previous version:
+            setImages(newImages);
+            await Promise.all(promises);
         };
 
         loadImages();

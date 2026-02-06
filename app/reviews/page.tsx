@@ -13,13 +13,16 @@ const REVIEWS = [
     { id: 6, name: "Tom Holland", role: "Actor", text: "Actually stumbled upon this place while filming. The owner didn't even recognize me, just gave me extra ribs. 10/10.", img: "https://i.pravatar.cc/150?u=tom", rating: 5, date: "1 month ago" },
 ];
 
+import { useLanguage } from '@/lib/LanguageContext';
+
 export default function ReviewsPage() {
+    const { t } = useLanguage();
 
     return (
         <main className="min-h-screen bg-mustard">
             <div className="pt-24 pb-12 px-4 text-center">
                 <h1 className="text-[12vw] font-header uppercase leading-[0.8] mb-8 text-charcoal">
-                    THE TRIBES <br /> <span className="text-white text-stroke-charcoal">VERDICT</span>
+                    {t('reviews.title')} <br /> <span className="text-white text-stroke-charcoal">{t('reviews.subtitle')}</span>
                 </h1>
             </div>
 
@@ -32,7 +35,7 @@ export default function ReviewsPage() {
                             <div className="text-center">
                                 <span className="font-header text-8xl text-caveman-red">4.8</span>
                                 <div className="flex justify-center text-mustard text-2xl my-4">★★★★★</div>
-                                <p className="font-body text-sm uppercase opacity-70 mb-6">Based on 342 verified carnivores</p>
+                                <p className="font-body text-sm uppercase opacity-70 mb-6">{t('reviews.based_on')}</p>
                                 <hr className="border-cream/20 mb-6" />
                                 <div className="space-y-2 font-body text-sm">
                                     <div className="flex justify-between items-center">

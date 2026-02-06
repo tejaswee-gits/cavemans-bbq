@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Beer } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useLanguage } from '@/lib/LanguageContext';
 
 interface HappyHourModalProps {
     isOpen: boolean;
@@ -10,6 +11,7 @@ interface HappyHourModalProps {
 }
 
 export default function HappyHourModal({ isOpen, onClose }: HappyHourModalProps) {
+    const { t } = useLanguage();
     useEffect(() => {
         let timer: NodeJS.Timeout;
         if (isOpen) {
@@ -53,25 +55,24 @@ export default function HappyHourModal({ isOpen, onClose }: HappyHourModalProps)
                         </div>
 
                         <h2 className="font-header text-4xl uppercase text-white mb-4 leading-none">
-                            HAPPY HOUR CHEZ CAVEMAN!
+                            {t('modal.title')}
                         </h2>
 
-                        <p className="font-body text-white text-sm mb-6 px-4">
-                            -20% sur toutes les bières pression et cocktails fumés.<br />
-                            Du mardi au vendredi, de 17h30 à 19h30.
+                        <p className="font-body text-white text-sm mb-6 px-4 whitespace-pre-line">
+                            {t('modal.text')}
                         </p>
 
                         <div className="flex flex-col gap-3">
                             <Link href="/menu">
                                 <button className="w-full bg-white text-[#D64933] font-header uppercase py-3 text-lg tracking-wider hover:bg-gray-100 transition-colors">
-                                    Voir la carte des boissons
+                                    {t('modal.btn_drinks')}
                                 </button>
                             </Link>
                             <button
                                 onClick={onClose}
                                 className="text-white text-xs uppercase font-bold underline hover:text-gray-200"
                             >
-                                Non merci... je n'ai pas soif
+                                {t('modal.btn_no')}
                             </button>
                         </div>
                     </motion.div>

@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function LoadingScreen({ onComplete }: { onComplete?: () => void }) {
     const [isLoading, setIsLoading] = useState(true);
+    const { t } = useLanguage();
 
     useEffect(() => {
         // Prevent scrolling while loading
@@ -43,7 +45,7 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
                                 animate={{ y: 0 }}
                                 transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
                             >
-                                Caveman's
+                                {t('loading.title1')}
                             </motion.h1>
                         </div>
 
@@ -54,7 +56,7 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
                                 animate={{ y: 0 }}
                                 transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.4 }}
                             >
-                                BBQ
+                                {t('loading.title2')}
                             </motion.h1>
                         </div>
 
@@ -71,7 +73,7 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
                             animate={{ opacity: 1 }}
                             transition={{ duration: 1, delay: 1 }}
                         >
-                            Loading Flavor...
+                            {t('loading.text')}
                         </motion.p>
                     </div>
                 </motion.div>
