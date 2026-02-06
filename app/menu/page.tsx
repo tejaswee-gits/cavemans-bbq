@@ -1,6 +1,6 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { ShoppingBag } from 'lucide-react';
 import clsx from 'clsx';
 import CartDrawer from '@/components/CartDrawer';
@@ -26,7 +26,7 @@ const MENU_ITEMS = [
     { id: 11, name: "NEGRONI ROCKS", desc: "The Caveman classic.", price: 12, type: "drinks", icon: "🥃" },
 ];
 
-export default function MenuPage() {
+function MenuContent() {
     const [activeTab, setActiveTab] = useState<'pit' | 'sides' | 'drinks'>('pit');
     const [cart, setCart] = useState<{ id: number, quantity: number }[]>([]);
     const [isCartOpen, setIsCartOpen] = useState(false);
@@ -177,5 +177,13 @@ export default function MenuPage() {
             <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} items={getCartItems()} onRemove={removeFromCart} />
             <ReservationModal isOpen={isReserveOpen} onClose={() => setIsReserveOpen(false)} />
         </main>
+    );
+}
+
+export default function MenuPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-cream flex items-center justify-center font-header text-3xl">Loading Menu...</div>}>
+            <MenuContent />
+        </Suspense>
     );
 }
