@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Anton, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import LoadingScreen from "@/components/LoadingScreen";
 import "./globals.css";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body
         className={`${anton.variable} ${inter.variable} antialiased bg-cream text-charcoal overflow-x-hidden`}
       >
+        <LoadingScreen />
         <div className="grain-overlay pointer-events-none fixed inset-0 z-50 opacity-[0.08]" aria-hidden="true" />
         <Navbar />
         <div className="pt-20">
