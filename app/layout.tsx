@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import "./globals.css";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const anton = Anton({
   weight: "400",
@@ -37,6 +38,7 @@ export default function RootLayout({
           {children}
         </div>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
